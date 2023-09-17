@@ -1,0 +1,46 @@
+version: '3.3'
+
+volumes:
+  pg_data:
+  static:
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+    restart: always
+  db:
+    image: postgres:13.10-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    env_file: .env
+    restart: on-failure
+  backend:
+    image: andreiklevtsov/mts_backend
+    restart: always
+    env_file: .env
+    depends_on:
+      - db
+      - selenium
+    volumes:
+      - static:/app/static
+  backend_migrations:
+    image: andreiklevtsov/mts_backend
+    depends_on:
+      - db
+      - backend
+    env_file: .env
+    command: python manage.py migrate
+    restart: on-failure
+  nginx:
+    image: andreiklevtsov/mts_nginx
+    env_file: .env
+    ports:
+      - 8000:80
+    volumes:
+      - static:/app/static
+    depends_on:
+      - backend

@@ -1,0 +1,29 @@
+{% load static %}
+<article>
+    <ul>
+        <li>
+            {% if tariff.badge_text %}
+            <p style="color: red;">{{ tariff.badge_text|linebreaksbr }}</p>
+            {% endif %}
+            <p>{{ tariff.name|linebreaksbr }}</p>
+            {% if tariff.description %}
+            <p>{{ tariff.description|linebreaksbr }}</p>
+            {% endif %}
+            <p>{{ tariff.features|linebreaksbr }}</p>
+            {% if tariff.benefits %}
+            <p>{{ tariff.benefits|linebreaksbr }}</p>
+            {% endif %}
+            <p>{{ tariff.main_price|linebreaksbr }}</p>
+            {% if tariff.sale_price %}
+            <p style="text-decoration: line-through; color: red;">{{ tariff.sale_price|linebreaksbr }}</p>
+            {% endif %}
+            {% if tariff.price_annotation %}
+            <p>{{ tariff.price_annotation|linebreaksbr }}</p>
+            {% endif %}
+        </li>
+    </ul>
+</article>
+<p>{{ linebreaksbr }}</p>
+{% if not forloop.last %}
+<hr>
+{% endif %}

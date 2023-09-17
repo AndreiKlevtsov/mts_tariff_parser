@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Все актуальный тарифы
+{% endblock %}
+{% block content %}
+<form method="get" action="{% url 'parser:get_tariffs' %}">
+    <div class="btn-group" role="group"
+         aria-label="Basic checkbox toggle button group">
+        {{ form.is_gb }}
+        <label class="btn btn-outline-primary" for="btncheck1">ГБ</label>
+    </div>
+    <div class="btn-group" role="group"
+         aria-label="Basic checkbox toggle button group">
+        {{ form.is_tv }}
+        <label class="btn btn-outline-primary" for="btncheck2">ТВ</label>
+    </div>
+    <div class="btn-group" role="group"
+         aria-label="Basic checkbox toggle button group">
+        {{ form.is_min }}
+        <label class="btn btn-outline-primary" for="btncheck3">МИН</label>
+    </div>
+    <button type="submit">Применить фильтр</button>
+</form>
+<h1>Все актуальные тарифы</h1>
+{% for tariff in page_obj %}
+{% include 'parser/includes/article.html' %}
+{% endfor %}
+{% endblock %}
