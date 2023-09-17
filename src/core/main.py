@@ -21,11 +21,11 @@ def get_source_code():
     driver = webdriver.Remote('http://selenium:4444/wd/hub',
                               options=options)
     driver.get(url)
-    time.sleep(1)
+    time.sleep(2)
     while True:
         try:
             driver.execute_script("scroll(0, 400)")
-            WebDriverWait(driver, 2).until(EC.element_to_be_clickable(
+            WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
                 (By.CLASS_NAME, "tariffs-more-btn"))).click()
             time.sleep(2)
             tarifff_cards = driver.find_elements(
@@ -35,6 +35,7 @@ def get_source_code():
             break
         except TimeoutException as e:
             print(e)
+            driver.quit()
     return tarifff_cards
 
 

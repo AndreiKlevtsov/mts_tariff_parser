@@ -19,8 +19,11 @@ services:
     env_file: .env
     restart: on-failure
   backend:
-    image: andreiklevtsov/mts_backend
-    restart: always
+    build:
+      context: ../mts_tariff_parser
+      dockerfile: Dockerfile
+#    image: andreiklevtsov/mts_backend
+    restart: on-failure
     env_file: .env
     depends_on:
       - db
@@ -28,7 +31,10 @@ services:
     volumes:
       - static:/app/static
   backend_migrations:
-    image: andreiklevtsov/mts_backend
+    build:
+      context: ../mts_tariff_parser
+      dockerfile: Dockerfile
+#    image: andreiklevtsov/mts_backend
     depends_on:
       - db
       - backend
@@ -36,7 +42,10 @@ services:
     command: python manage.py migrate
     restart: on-failure
   nginx:
-    image: andreiklevtsov/mts_nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+#    image: andreiklevtsov/mts_nginx
     env_file: .env
     ports:
       - 8000:80

@@ -1,6 +1,6 @@
 # mts_tariff_parser
 
-# Foodgram
+### Проект запущен на сервере по адресу : http://158.160.69.243:8000
 
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
@@ -26,10 +26,14 @@ git clone git@github.com:AndreiKlevtsov/mts_tariff_parser.git
 ```
 ```
 cd mts_tariff_parser
-
-
+touch .env
 ```
+### Скопировать содержимое файла env.examle -> .env
 
+## Запуск проекта:
+```
+docker compose up -d --build
+```
 ## Для работы с удаленным сервером:
 * Выполните вход на свой удаленный сервер
 
@@ -42,7 +46,7 @@ sudo apt install docker.io
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-* Локально отредактируйте файл gateway/nginx.conf и в строке server_name впишите свой IP и/или доменное имя.
+* Локально отредактируйте файл nginx/nginx.conf и в строке server_name впишите свой IP и/или доменное имя.
 * Скопируйте файлы docker-compose.yml и nginx.conf из директории gateway на сервер:
 ```
 scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
